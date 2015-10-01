@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="harsu.atmos2k15.atmos.com.atmos2k15.ReachCampus">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+
+        android:drawableRight="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+        android:text="Bus"
+        android:textSize="20sp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginTop="8dp"
+
+        android:scrollbarStyle="outsideInset">
+    <TableLayout
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TableRow>
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:text="Bus number" />
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:text="From" />
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:text="To" />
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:text="Description" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:text="212"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="Secunderabad \nRailway Station" />
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="BITS Pilani \nHyderabad Campus" />
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="Direct \nBus route" />
+
+        </TableRow>
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:text="211C, 211M,\n etc"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="Secunderabad \nRailway Station" />
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="Thumbkunta" />
+            <TextView
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="Auto to Campus\nfrom Thumbkunta" />
+
+        </TableRow>
+
+
+    </TableLayout>
+    </HorizontalScrollView>
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+
+        android:id="@+id/feed_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="8dp"
+        android:layout_toLeftOf="@+id/feed_time"
+        android:fontFamily="sans-serif-medium"
+        android:text="Robowars"
+        android:textColor="#ffffff"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/feed_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="3:01 pm "
+        android:textSize="16sp"
+
+        />
+
+    <TextView
+        android:id="@+id/feed_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/feed_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Starting in 15 mins, Be there"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_marginBottom="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+
+    <TextView
+        android:id="@+id/event_schedule_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+
+        android:text="Line and Wall Follower"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/event_schedule_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event_schedule_name"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="11 am"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/event_schedule_venue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event_schedule_time"
+        android:layout_marginLeft="16dp"
+
+        android:layout_marginTop="2dp"
+        android:text="F-104"
+        android:textSize="20sp" />
+</RelativeLayout>
