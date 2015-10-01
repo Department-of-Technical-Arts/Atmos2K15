@@ -2,6 +2,7 @@ package harsu.atmos2k15.atmos.com.atmos2k15.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 import harsu.atmos2k15.atmos.com.atmos2k15.R;
 import harsu.atmos2k15.atmos.com.atmos2k15.set.ScheduleSet;
@@ -20,17 +20,27 @@ import harsu.atmos2k15.atmos.com.atmos2k15.set.ScheduleSet;
  * Created by harsu on 6/23/2015.
  */
 
-public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHolder> implements StickyRecyclerHeadersAdapter<ScheduleAdapter.MyHeaderHolder>{
+public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHolder> implements StickyRecyclerHeadersAdapter<ScheduleAdapter.MyHeaderHolder> {
     private final LayoutInflater layoutInflater;
     ArrayList<ScheduleSet> scheduleSets;
     ClickListener clickListener;
 
     Context context;
+    int day;
+    Calendar morn_start = Calendar.getInstance(), morn_end = Calendar.getInstance(), aft_end = Calendar.getInstance(), eve_end = Calendar.getInstance();
 
-    public ScheduleAdapter(Context context) {
+    public ScheduleAdapter(Context context, int day) {
         layoutInflater = LayoutInflater.from(context);
         scheduleSets = new ArrayList<>();
         this.context = context;
+        this.day = day;
+
+
+        morn_start.set(2015, Calendar.OCTOBER, 9 + day, 3, 0);
+        morn_end.set(2015, Calendar.OCTOBER, 9 + day, 12, 0);
+        aft_end.set(2015, Calendar.OCTOBER, 9 + day, 16, 0);
+        eve_end.set(2015, Calendar.OCTOBER, 9 + day, 19, 0);
+
 
     }
 
@@ -59,9 +69,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
     private String getTime(Long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        String temp = calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE)
-                + " " +
-                calendar.getDisplayName(Calendar.AM_PM, Calendar.LONG, Locale.getDefault());
+        String temp = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)+" "+calendar.get(Calendar.DAY_OF_MONTH)
+                +" "+calendar.get(Calendar.MONTH);
 
         return temp;
 
@@ -73,19 +82,38 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
 
     @Override
     public long getHeaderId(int i) {
-        return scheduleSets.get(i).getName().charAt(0);
-        //todo set header according to long time limits 0 for morn, 1 for after noon , 2 for eve
+        // return scheduleSets.get(i).getName().charAt(0);
+        long startTime = scheduleSets.get(i).getStart_time();
+        int result;
+
+        if (startTime >= morn_start.getTimeInMillis() && startTime < morn_end.getTimeInMillis()) {
+
+            Log.e("Morn start",getTime(morn_start.getTimeInMillis())+i);
+            Log.e("Morn end",getTime(morn_end.getTimeInMillis())+i);
+            result=0;
+        }
+        else if (startTime >= morn_end.getTimeInMillis() && startTime < aft_end.getTimeInMillis()) {
+            result=1;
+        }
+        else if (startTime >= aft_end.getTimeInMillis() && startTime < eve_end.getTimeInMillis()) {
+            result=2;
+        }
+        else {
+            result=3;
+        }
+        Log.e("Start time", getTime(startTime)+" pos:"+i+" returned:"+result);
+        return result;
 
     }
 
     @Override
     public MyHeaderHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
-        return new MyHeaderHolder(layoutInflater.inflate(R.layout.custom_schedule_header,viewGroup,false));
+        return new MyHeaderHolder(layoutInflater.inflate(R.layout.custom_schedule_header, viewGroup, false));
     }
 
     @Override
     public void onBindHeaderViewHolder(MyHeaderHolder myHeaderHolder, int i) {
-        switch (i){
+        switch (i) {
             case 0:
                 myHeaderHolder.header.setText("Morning");
                 break;
@@ -95,7 +123,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
             case 2:
                 myHeaderHolder.header.setText("Evening");
                 break;
+            case 3:
+                myHeaderHolder.header.setText("Night");
+                break;
+
         }
+
     }
 
     @Override
@@ -129,11 +162,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
         }
 
     }
-    public class MyHeaderHolder extends RecyclerView.ViewHolder{
+
+    public class MyHeaderHolder extends RecyclerView.ViewHolder {
         TextView header;
+
         public MyHeaderHolder(View itemView) {
             super(itemView);
-            header=(TextView) itemView.findViewById(R.id.header_text);
+            header = (TextView) itemView.findViewById(R.id.header_text);
         }
     }
 }

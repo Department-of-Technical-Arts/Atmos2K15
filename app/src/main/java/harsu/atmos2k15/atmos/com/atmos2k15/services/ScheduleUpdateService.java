@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.AppConfig;
+import app.ControllerConstants;
 import app.VolleySingleton;
 import harsu.atmos2k15.atmos.com.atmos2k15.adapter.ScheduleAdapter;
 import helper.EventTableManager;
@@ -46,7 +47,7 @@ public class ScheduleUpdateService extends IntentService {
     private void sendRequest() {
         final EventTableManager tableManager = new EventTableManager(this);
         final ScheduleTableManager scheduleTableManager=new ScheduleTableManager(this);
-        StringRequest request = new StringRequest(Request.Method.POST, AppConfig.URL_Events, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, ControllerConstants.URL_Events, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Log.e("Schedule.class", s);
@@ -56,7 +57,7 @@ public class ScheduleUpdateService extends IntentService {
                         JSONObject object = array.getJSONObject(i);
                         //todo update updated time
                         tableManager.updateSchedule(object.getInt("Event_id"), object.getLong("Start_time"), object.getString("venue"));
-                        scheduleTableManager.addEntry(object.getInt("Event_id"),object.getInt("tag"),object.getString("Event_Name"),object.getLong("Start_time"),object.getString("venue"));
+                        scheduleTableManager.addEntry(object.getInt("Event_id"),object.getInt("tag"),object.getString("Event_Name"),object.getLong("Start_time")*1000,object.getString("venue"));
                     }
                     deliverResultToReceiver(1, "Refreshed");
 

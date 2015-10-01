@@ -168,6 +168,12 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
                         clickListener.onClick(v,getAdapterPosition());
                     }
                 });
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickListener.onClick(v,getAdapterPosition());
+                    }
+                });
             }
         }
     }

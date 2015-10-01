@@ -2,6 +2,7 @@ package harsu.atmos2k15.atmos.com.atmos2k15;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -66,6 +67,11 @@ public class EventListingFragment extends Fragment implements RecyclerClickListe
         if(v.getId()==R.id.favourite_icon){
             events.get(pos).setFavourite(mTableManager.toggleFavourite(events.get(pos).getId()));
             mAdapter.notifyItemChanged(pos);
+        }
+        else if(v.getId()==R.id.custom_event_row){
+            Intent intent=new Intent(getActivity(),EventDataActivity.class);
+            intent.putExtra("Event_id",events.get(pos).getId());
+            startActivity(intent);
         }
     }
 }

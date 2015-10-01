@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.AppConfig;
+import app.ControllerConstants;
 import app.VolleySingleton;
 import harsu.atmos2k15.atmos.com.atmos2k15.R;
 
@@ -105,7 +106,7 @@ public class RegistrationIntentService extends IntentService {
     private void sendRegistrationToServer(final String token) {
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Add custom implementation, as needed.
-        StringRequest request = new StringRequest(Request.Method.POST, AppConfig.URL_Events, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, ControllerConstants.URL_Events, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Log.e("Token sent", s);

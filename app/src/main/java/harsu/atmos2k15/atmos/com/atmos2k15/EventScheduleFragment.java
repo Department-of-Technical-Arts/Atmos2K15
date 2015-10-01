@@ -41,18 +41,17 @@ public class EventScheduleFragment extends Fragment {
     RecyclerView recyclerView;
     ScheduleTableManager mTableManager;
     ScheduleAdapter mAdapter;
+    int day;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        day=getArguments().getInt("day");
         recyclerView=(RecyclerView) view.findViewById(R.id.event_schedule_container);
         mTableManager=new ScheduleTableManager(getActivity());
         ArrayList<ScheduleSet> data=new ArrayList<>();
-        data=mTableManager.getSchedule();
-        mAdapter=new ScheduleAdapter(getActivity());
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.setScheduleSets(data);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        data=mTableManager.getSchedule(day);
+        mAdapter=new ScheduleAdapter(getActivity(),day);
         final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
         recyclerView.addItemDecoration(headersDecor);
 
@@ -62,5 +61,9 @@ public class EventScheduleFragment extends Fragment {
                 headersDecor.invalidateHeaders();
             }
         });
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.setScheduleSets(data);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
     }
 }

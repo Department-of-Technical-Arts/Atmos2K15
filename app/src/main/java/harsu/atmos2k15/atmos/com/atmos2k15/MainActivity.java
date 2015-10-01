@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.schedule:
-                        fragment = new EventScheduleFragment();
+                        fragment = new ScheduleFragmentHeader();
                         transaction.replace(R.id.container, fragment, "schedule");
                         transaction.commit();
                         menuItem.setChecked(true);

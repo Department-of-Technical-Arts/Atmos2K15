@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import harsu.atmos2k15.atmos.com.atmos2k15.set.ScheduleSet;
 
@@ -87,10 +88,18 @@ public class ScheduleTableManager {
         return id;
     }
 
-    public ArrayList<ScheduleSet> getSchedule() {
+    public ArrayList<ScheduleSet> getSchedule(int day) {
+        //todo return events on that day
+        Calendar start=Calendar.getInstance(),end=Calendar.getInstance();
+        start.set(2015,Calendar.OCTOBER,9+day,0,0);
+        end.set(2015,Calendar.OCTOBER,10+day,0,0);
+
         ArrayList<ScheduleSet> scheduleSets = new ArrayList<>();
         open();
-        Cursor cursor = ourDatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE + " ORDER BY CAST("+KEY_START_TIME+" AS INTEGER) ",
+        Cursor cursor = ourDatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE +
+                        " WHERE CAST("+KEY_START_TIME+" AS INTEGER) >= "+start.getTimeInMillis()+
+                        " AND CAST("+KEY_START_TIME+" AS INTEGER) < "+end.getTimeInMillis()+
+                        " ORDER BY CAST("+KEY_START_TIME+" AS INTEGER) ",
                 null);
         if (cursor.moveToFirst())
             do {
@@ -106,6 +115,19 @@ public class ScheduleTableManager {
         cursor.close();
         close();
         return scheduleSets;
+    }
+
+    public boolean dataPresent() {
+        open();
+        boolean result=false;
+        Cursor cursor=ourDatabase.rawQuery(" SELECT * FROM "+DATABASE_TABLE,null);
+        if(cursor.moveToFirst()){
+            result=true;
+        }
+        close();
+        cursor.close();
+        return result;
+
     }
 
     private static class DBHelper extends SQLiteOpenHelper {
