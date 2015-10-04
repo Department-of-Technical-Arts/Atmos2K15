@@ -54,6 +54,12 @@ public class FeedFragment extends Fragment implements RecyclerClickListener {
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter.setClickListener(this);
+        if(feedSets.size()<=0){
+            view.findViewById(R.id.feedEmpty).setVisibility(View.VISIBLE);
+        }
+        else {
+            view.findViewById(R.id.feedEmpty).setVisibility(View.GONE);
+        }
     }
 
     @Override

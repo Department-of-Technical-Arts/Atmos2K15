@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.example.tejeshwarreddy.atmos.Register">
+
+    <LinearLayout
+        android:id="@+id/name_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_textview"
+            android:text="Name" />
+
+        <EditText
+            android:inputType="text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/name_layout"
+        android:id="@+id/college_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_below="@+id/name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/college_textview"
+            android:text="College" />
+        <EditText
+            android:inputType="text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/college_layout"
+        android:id="@+id/events_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_below="@+id/college_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventspractipating"
+            android:text="Events Particitating" />
+        <TextView
+            android:text="nvkzjvkjbdvkxv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+<!--        <Spinner
+            android:id="@+id/events_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>-->
+            </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/phoneno_layout"
+        android:id="@+id/year_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_below="@+id/eventspractipating"
+        android:id="@+id/year_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Year" />
+        <Spinner
+            android:id="@+id/year_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+    </LinearLayout>
+<LinearLayout
+    android:layout_below="@+id/events_layout"
+    android:id="@+id/phoneno_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_below="@+id/year_textview"
+        android:id="@+id/phoneno_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone No." />
+    <EditText
+        android:inputType="phone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/year_layout"
+        android:id="@+id/email_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <TextView
+
+        android:id="@+id/email_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E-Mail" />
+        <EditText
+            android:inputType="text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:text="Register"
+        android:layout_marginLeft="250dp"
+        android:layout_below="@+id/email_layout"
+        android:id="@+id/registerbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/registerambassador"
+        android:layout_marginLeft="73dp"
+        android:layout_below="@+id/registerbutton"
+        android:text="Register as Campus Ambassador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

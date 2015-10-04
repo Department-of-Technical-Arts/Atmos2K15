@@ -214,8 +214,22 @@ public class EventTableManager {
                     cursor.getInt(13)
             );
         }
+        close();
+        cursor.close();
         return eventDataSet;
 
+    }
+
+    public boolean dataPresent() {
+        boolean result=false;
+        open();
+        Cursor cursor=ourDatabase.rawQuery("SELECT * FROM "+DATABASE_TABLE,null);
+        if(cursor.moveToFirst()){
+            result=true;
+        }
+        close();
+        cursor.close();
+        return result;
     }
 
 
@@ -301,6 +315,7 @@ public class EventTableManager {
         Cursor cursor = ourDatabase.rawQuery("SELECT " + KEY_ID + " FROM " + DATABASE_TABLE +
                         " WHERE " + KEY_NAME + " = '" + cv.getAsString(KEY_NAME) + "' AND "+KEY_TAG+" = '"+cv.getAsString(KEY_TAG)+"'",
                 null);
+
         if (cursor.moveToFirst())
             id = cursor.getInt(0);
         cursor.close();

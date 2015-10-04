@@ -50,35 +50,72 @@
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="3dp">
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/event_descrption"
+            <android.support.v7.widget.CardView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="BITS mission is to advance knowledge and educate students in science, technology, and other areas of scholarship that will best serve the nation and the world in the 21st century."
+                android:layout_margin="8dp"
+                app:cardCornerRadius="3dp">
 
-                android:textSize="18sp" />
-        </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/event_schedule_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="2 pm 10th October"
+
+                    android:textSize="18sp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="3dp">
+
+                <TextView
+                    android:id="@+id/event_descrption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="BITS mission is to advance knowledge and educate students in science, technology, and other areas of scholarship that will best serve the nation and the world in the 21st century."
+
+                    android:textSize="18sp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:id="@+id/contact_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
 
-    <android.support.design.widget.FloatingActionButton
+  <!--  <android.support.design.widget.FloatingActionButton
         android:id="@+id/call_organizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@android:drawable/btn_star_big_off" />
-
-    <com.bowyer.app.fabtoolbar.FabToolbar
+-->
+   <!-- <com.bowyer.app.fabtoolbar.FabToolbar
         android:id="@+id/fabtoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -104,5 +141,5 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
         </LinearLayout>
-    </com.bowyer.app.fabtoolbar.FabToolbar>
+    </com.bowyer.app.fabtoolbar.FabToolbar>-->
 </android.support.design.widget.CoordinatorLayout>

@@ -51,6 +51,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
         myViewHolder.name.setText(arrayList.get(i).getName());
         myViewHolder.designation.setText((arrayList.get(i).getDesignation()));
         myViewHolder.imageView.setImageResource(arrayList.get(i).getImage());
+        myViewHolder.numberTV.setText(arrayList.get(i).getMobile());
+        myViewHolder.emailTV.setText(arrayList.get(i).getEmail());
     }
 
     @Override
@@ -61,7 +63,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageView;
-        TextView name,designation;
+        TextView name,designation,numberTV,emailTV;
         Button email,mobile;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -70,6 +72,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
             designation=(TextView)itemView.findViewById(R.id.contact_designation);
             mobile=(Button)itemView.findViewById(R.id.call);
             email=(Button)itemView.findViewById(R.id.email);
+            numberTV=(TextView) itemView.findViewById(R.id.phoneno);
+            emailTV=(TextView) itemView.findViewById(R.id.email_text);
             if(clickListener!=null)
             {
                 mobile.setOnClickListener(new View.OnClickListener() {

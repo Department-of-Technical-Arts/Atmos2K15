@@ -69,7 +69,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
 
             if (eventTableManager.checkFavourite(event_id))
-                sendNotification(message, eventTableManager.getEventName(event_id));
+                sendNotification(message, eventTableManager.getEventName(event_id), event_id);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -85,13 +85,15 @@ public class MyGcmListenerService extends GcmListenerService {
      *
      * @param message   GCM message received.
      * @param eventName
+     * @param event_id
      */
-    private void sendNotification(String message, String eventName) {
+    private void sendNotification(String message, String eventName, int event_id) {
         //todo add image and stuff to notification
         try {
             JSONObject object = new JSONObject(message);
             //todo change MainActivity.class
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, EventDataActivity.class);
+            intent.putExtra("Event_id", event_id);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_ONE_SHOT);
@@ -108,7 +110,7 @@ public class MyGcmListenerService extends GcmListenerService {
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+            notificationManager.notify(message, 0, notificationBuilder.build());
         } catch (JSONException e) {
             e.printStackTrace();
         }

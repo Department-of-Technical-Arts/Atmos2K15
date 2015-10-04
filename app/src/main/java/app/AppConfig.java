@@ -10,4 +10,5 @@ public class AppConfig {
     public static final String RECEIVER_Chat = PACKAGE_NAME + ".CHATRECEIVER";
     public static final String SENT_TOKEN_TO_SERVER = "com.developer.harsu.atmos2k15.token_sent";
 
+    public static String LastUpdated=PACKAGE_NAME+".lastupdated";
 }

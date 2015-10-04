@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.tejeshwarreddy.atmos.Home"
+    tools:showIn="@layout/activity_home">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About Us"
+                android:textSize="25dp" />
+
+            <TextView
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The acronym of ATMOS – Assimilation of Technically Motivated Souls – is a true representation of what we are. The national techno-management fest of BITS Pilani Hyderabad Campus has grown from pillar to pillar in strength since its inception in 2012. Spanning over 4 days from the 8th to 11th of October, ATMOS brings to you a plethora of exciting contests, workshops, lectures and much more!  From epic battles at Robowars to ingeniously designed Line Follower robots, experience robotics like never before. Code your way to glory at the Hackathon or work your magic with the Rubik’s cube at our Cubing Atmosphere. Put the manager in you to test with our range of management contests or discover the sheer excitement on wheels – MiniGP. From heart-rate sensors to trash collecting bots, soak in the brilliance of innovation at Tech-tainment.  Featuring 'Space- The Final Frontier' as the theme this year, we are looking to make this edition bigger and better than ever before! Even sky is not the limit!"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

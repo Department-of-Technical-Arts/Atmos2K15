@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import harsu.atmos2k15.atmos.com.atmos2k15.adapter.ContactAdapter;
 import harsu.atmos2k15.atmos.com.atmos2k15.set.Contacts;
 import helper.RecyclerClickListener;
+/*created by tejeshwar reddy
 
+ */
 
 public class ContactsFragment extends Fragment implements RecyclerClickListener {
 
@@ -68,84 +70,17 @@ public class ContactsFragment extends Fragment implements RecyclerClickListener 
     @Override
     public void onClick(View view, int position) {
         if (view.getId() == R.id.call) {
-            switch (position) {
-                case 0:
-                    Uri number0 = Uri.parse("tel:+918187874280");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number0));
-                    break;
-                case 1:
-                    Uri number1 = Uri.parse("tel:+918501926741");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number1));
-                    break;
-                case 2:
-                    Uri number2 = Uri.parse("tel:+918186848186");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number2));
-                    break;
-                case 3:
-                    Uri number3 = Uri.parse("tel:+919705235153");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number3));
-                    break;
-                case 4:
-                    Uri number4 = Uri.parse("tel:+917730903488");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number4));
-                    break;
-                case 5:
-                    Uri number5 = Uri.parse("tel:+918185903454");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number5));
-                    break;
-                case 6:
-                    Uri number6 = Uri.parse("tel:+918185092055");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number6));
-                    break;
-                case 7:
-                    Uri number7 = Uri.parse("tel:+919010009455");
-                    startActivity(new Intent(Intent.ACTION_DIAL, number7));
-                    break;
-            }
-        }
-        if (view.getId() == R.id.email) {
-            switch (position) {
-                case 0:
-                    Intent emailIntent0 = new Intent(Intent.ACTION_SEND);
-                    emailIntent0.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"prudhvi@bits-atmos.org"});
-                    startActivity(emailIntent0);
-                    break;
-                case 1:
-                    Intent emailIntent1 = new Intent(Intent.ACTION_SEND);
-                    emailIntent1.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"kaushal@bits-atmos.org"});
-                    startActivity(emailIntent1);
-                    break;
-                case 2:
-                    Intent emailIntent2 = new Intent(Intent.ACTION_SEND);
-                    emailIntent2.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"kashyap@bits-atmos.org"});
-                    startActivity(emailIntent2);
-                    break;
-                case 3:
-                    Intent emailIntent3 = new Intent(Intent.ACTION_SEND);
-                    emailIntent3.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"ashish@bits-atmos.org"});
-                    startActivity(emailIntent3);
-                    break;
-                case 4:
-                    Intent emailIntent4 = new Intent(Intent.ACTION_SEND);
-                    emailIntent4.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"saumya@bits-atmos.org"});
-                    startActivity(emailIntent4);
-                    break;
-                case 5:
-                    Intent emailIntent5 = new Intent(Intent.ACTION_SEND);
-                    emailIntent5.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"chanakya@bits-atmos.org"});
-                    startActivity(emailIntent5);
-                    break;
-                case 6:
-                    Intent emailIntent6 = new Intent(Intent.ACTION_SEND);
-                    emailIntent6.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"aditya@bits-atmos.org"});
-                    startActivity(emailIntent6);
-                    break;
-                case 7:
-                    Intent emailIntent7 = new Intent(Intent.ACTION_SEND);
-                    emailIntent7.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{"owais@bits-atmos.org"});
-                    startActivity(emailIntent7);
-                    break;
-            }
+            Uri number = Uri.parse("tel:" + data.get(position).getMobile());
+            startActivity(new Intent(Intent.ACTION_DIAL, number));
+
+
+        } else if (view.getId() == R.id.email) {
+
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("text/html").putExtra(Intent.EXTRA_EMAIL, new String[]{data.get(position).getEmail()});
+            startActivity(emailIntent);
+
+
         }
     }
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,8 @@ public class EventListingFragmentHeader extends Fragment {
         mTableManager=new EventTableManager(getActivity());
         ArrayList<String> tags= mTableManager.getDistinctTags(tab);
 
+
+
         mViewPager=(ViewPager) view.findViewById(R.id.event_list_fragment_container);
         mTab=(TabLayout) view.findViewById(R.id.event_list_tab);
         SectionPagerAdapter mAdapter = new SectionPagerAdapter(this,tags);
@@ -47,7 +50,8 @@ public class EventListingFragmentHeader extends Fragment {
         mTab.setupWithViewPager(mViewPager);
         if(tags.size()<=1){
             mTab.setVisibility(View.GONE);
-            Log.e("EventListingHeader","Invisible");
+
+            Log.e("EventListingHeader", "Invisible");
         }
 
 

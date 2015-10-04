@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,12 +17,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import app.AppConfig;
 import harsu.atmos2k15.atmos.com.atmos2k15.services.MyInstanceIDListenerService;
 import harsu.atmos2k15.atmos.com.atmos2k15.services.RegistrationIntentService;
 import harsu.atmos2k15.atmos.com.atmos2k15.services.ScheduleUpdateService;
 import helper.EventTableManager;
+import helper.ScheduleTableManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,14 +33,15 @@ public class MainActivity extends AppCompatActivity {
     CustomActionBarDrawerToggle mDrawerToggle;
     NavigationView mNavigation;
     FragmentManager manager;
+    int backNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent=new Intent(this, ScheduleUpdateService.class);
+        Intent intent = new Intent(this, ScheduleUpdateService.class);
         startService(intent);
-
+        backNumber = 0;
         //todo add thy data
         addData();
         createToken();
@@ -97,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
                 "</ul>"));
 */
         manager = getSupportFragmentManager();
+        FragmentTransaction transaction2 = manager.beginTransaction();
+        Fragment fragment2 = new HomeFragment();
+        transaction2.replace(R.id.container, fragment2, "home");
+        transaction2.commit();
 
 
         //todo show nav drawer when user open apps for first time
@@ -111,17 +119,38 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
 
                 switch (menuItem.getItemId()) {
+                    case R.id.home_menu:
+                        fragment = new HomeFragment();
+                        transaction.replace(R.id.container, fragment, "home");
+                        transaction.commit();
+                        menuItem.setChecked(true);
+                        mDrawer.closeDrawer(Gravity.LEFT);
+
+                        break;
+
                     case R.id.reachCampus:
-                        /*fragment = new ReachCampus();
+                        fragment = new ReachCampus();
                         transaction.replace(R.id.container, fragment, "reachCampus");
                         transaction.commit();
                         menuItem.setChecked(true);
-                        mDrawer.closeDrawer(Gravity.LEFT);*/
-                        Intent intent = new Intent(MainActivity.this, Maps.class);
-                        startActivity(intent);
+                        mDrawer.closeDrawer(Gravity.LEFT);
+
+                        break;
+
+                    case R.id.campusMap:
+                        fragment = new Maps();
+                        transaction.replace(R.id.container, fragment, "maps");
+                        transaction.commit();
+                        menuItem.setChecked(true);
+                        mDrawer.closeDrawer(Gravity.LEFT);
 
                         break;
                     case R.id.schedule:
+                        ScheduleTableManager mTableManager = new ScheduleTableManager(MainActivity.this);
+                        if (!mTableManager.dataPresent()) {
+                            Toast.makeText(MainActivity.this, "Schedule has not been updated. Please check internet connection", Toast.LENGTH_LONG).show();
+                            break;
+                        }
                         fragment = new ScheduleFragmentHeader();
                         transaction.replace(R.id.container, fragment, "schedule");
                         transaction.commit();
@@ -129,6 +158,14 @@ public class MainActivity extends AppCompatActivity {
                         mDrawer.closeDrawer(Gravity.LEFT);
                         break;
 
+                    case R.id.register:
+                        fragment = new Register();
+                        transaction.replace(R.id.container, fragment, "register");
+                        transaction.commit();
+                        menuItem.setChecked(true);
+                        mDrawer.closeDrawer(Gravity.LEFT);
+
+                        break;
                     case R.id.events:
 
                         fragment = new EventChooserFragment();
@@ -156,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.feed:
-                        fragment=new FeedFragment();
-                        transaction.replace(R.id.container,fragment,"feed");
+                        fragment = new FeedFragment();
+                        transaction.replace(R.id.container, fragment, "feed");
                         transaction.commit();
                         menuItem.setChecked(true);
                         mDrawer.closeDrawer(Gravity.LEFT);
@@ -194,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 1234998l,
                 "D-Block",
                 "The headliner, the crowd-puller, the pure visual euphoria in any ATMOS always had just one name - RoboWars! See the rebirth of the majestic medieval knights in their 21st century avatar. See the robots battle it all out in the mighty space at BITS Pilani Hyderabad Campus. Behold a futuristic projection of Gladiatorial days of combat. The war is about to begin. Tighten the screws, charge your batteries, oil the parts, it�s going to get messy. Are you ready?",
-                "",
+                "[{\"name\":\"Harsu\",\"contact\":\"9912249068\"},{\"name\":\"Tejeshwar\",\"contact\":\"9603302802\"}]",
                 "http://bits-atmos.org/Events/img/robowars.jpg",
                 0,
                 0d,
@@ -207,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 1234998l,
                 "F-104",
                 "If microprocessor and microcontrollers are your toys on interest, this contest is made for you. Combine your knowledge of digital electronics, microprocessors to create miracles and solve real life problems. With ticking clock and all your skills put at test, work on your preferred microcontroller platform and walk away with prizes this October. It's high time you gear up for the challenge, with all your concepts at their best and programming skills tuned up to the level of professionals. We present to all you Microprocessor fanatics the Open Micro Challenge! ",
-                "",
+                "[{\"name\":\"Tejeshwar\",\"contact\":\"9603302802\"}]",
                 "http://bits-atmos.org/Events/img/openMicrochallenge.jpg",
                 0,
                 0d,
@@ -220,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                 1234998l,
                 "Hockey Ground",
                 "Design and build a wireless remote controlled flying drone to complete the tasks with highest points possible.\nThere are two rounds and a BONUS round in the competition. Top 10 teams from ROUND-1 are eligible to compete in ROUND-2. There is an optional BONUS round to show your outstanding design, maneuver capabilities.",
-                "",
+                "[{\"name\":\"Harsu\",\"contact\":\"9912249068\"},{\"name\":\"Tejeshwar\",\"contact\":\"9603302802\"}]",
                 "http://bits-atmos.org/Events/img/quadcopter.jpg",
                 0,
                 0d,
@@ -280,6 +317,19 @@ public class MainActivity extends AppCompatActivity {
                 0,
                 0d,
                 1);
+        tableManager.addEntry(9,
+                " ",
+                "Others",
+                "Mathefia",
+                1234669l,
+                1234998l,
+                "FootBall Ground",
+                "I bet most of us have dreamt of racing our cars at top speeds through spick, black race courses. Come October and BITS-Pilani,Hyderabad Campus will be all set to fulfil your dream,well,in a way.On the line of the ecstatic Moto GP competition,we are conducting The Mini GP competition.The competition will have its participants (or racers) drive self-designed remote controlled cars through deliciously twisty race tracks to win the final cup! Seems simple?Well, brace yourselves for some rock solid competition. Forget not, the more innovative and inventive your design is, the closer you are to the Mini GP cup.Fasten your seatbelts and let the adrenaline pump up!",
+                "",
+                "http://bits-atmos.org/Events/img/mathefia.jpg",
+                0,
+                0d,
+                1);
 
 
     }
@@ -322,9 +372,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        backNumber = 0;
+    }
+
+    @Override
     public void onBackPressed() {
+
         if (mDrawer.isDrawerOpen(Gravity.LEFT)) {
             mDrawer.closeDrawer(Gravity.LEFT);
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            super.onBackPressed();
+        } else if (backNumber < 1) {
+            backNumber++;
+            Toast.makeText(this, "Press Back again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    backNumber = 0;
+                }
+            }, 2000);
         } else {
             super.onBackPressed();
         }

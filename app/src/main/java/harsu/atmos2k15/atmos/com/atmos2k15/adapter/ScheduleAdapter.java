@@ -70,8 +70,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
     private String getTime(Long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        String temp = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE)+" "+calendar.get(Calendar.DAY_OF_MONTH)
-                +" "+calendar.get(Calendar.MONTH);
+        String temp = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
 
         return temp;
 
