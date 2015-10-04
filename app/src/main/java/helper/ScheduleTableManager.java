@@ -89,7 +89,7 @@ public class ScheduleTableManager {
     }
 
     public ArrayList<ScheduleSet> getSchedule(int day) {
-        //todo return events on that day
+
         Calendar start=Calendar.getInstance(),end=Calendar.getInstance();
         start.set(2015,Calendar.OCTOBER,9+day,0,0);
         end.set(2015,Calendar.OCTOBER,10+day,0,0);

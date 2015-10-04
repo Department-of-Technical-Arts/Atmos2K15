@@ -10,6 +10,7 @@ import java.security.KeyFactory;
 import java.util.ArrayList;
 
 import harsu.atmos2k15.atmos.com.atmos2k15.EventChooserFragment;
+import harsu.atmos2k15.atmos.com.atmos2k15.set.EventDataSet;
 import harsu.atmos2k15.atmos.com.atmos2k15.set.EventSet;
 
 /**
@@ -180,13 +181,41 @@ public class EventTableManager {
         String name="";
         open();
         Cursor cursor = ourDatabase.rawQuery("SELECT " + KEY_NAME + " FROM " + DATABASE_TABLE +
-                    " WHERE "+KEY_EVENT_ID+" = '"+event_id+"' " ,
+                    " WHERE "+KEY_EVENT_ID+" = "+event_id+" " ,
                 null);
         if (cursor.moveToFirst())
            name=cursor.getString(0);
         cursor.close();
         close();
         return name;
+    }
+
+    public EventDataSet getEventData(int event_id) {
+        open();
+
+        EventDataSet eventDataSet=null;
+        Cursor cursor = ourDatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE +
+                        " WHERE "+KEY_EVENT_ID+" = "+event_id+" " ,
+                null);
+        if (cursor.moveToFirst()){
+            eventDataSet=new EventDataSet(
+                    cursor.getInt(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getLong(5),
+                    cursor.getLong(6),
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9),
+                    cursor.getString(10),
+                    cursor.getInt(11),
+                    cursor.getDouble(12),
+                    cursor.getInt(13)
+            );
+        }
+        return eventDataSet;
+
     }
 
 
@@ -234,9 +263,9 @@ public class EventTableManager {
                           String    details,
                           String    contacts,
                           String    image_link,
-                          int   image_downloaded,
+                          int       image_downloaded,
                           Double    cost,
-                          int   favourite      ) {
+                          int       favourite      ) {
         long success=-1;
 
         ContentValues cv = new ContentValues();

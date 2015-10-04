@@ -15,6 +15,7 @@ import java.util.Calendar;
 
 import harsu.atmos2k15.atmos.com.atmos2k15.R;
 import harsu.atmos2k15.atmos.com.atmos2k15.set.ScheduleSet;
+import helper.RecyclerClickListener;
 
 /**
  * Created by harsu on 6/23/2015.
@@ -23,7 +24,7 @@ import harsu.atmos2k15.atmos.com.atmos2k15.set.ScheduleSet;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHolder> implements StickyRecyclerHeadersAdapter<ScheduleAdapter.MyHeaderHolder> {
     private final LayoutInflater layoutInflater;
     ArrayList<ScheduleSet> scheduleSets;
-    ClickListener clickListener;
+    RecyclerClickListener clickListener;
 
     Context context;
     int day;
@@ -76,7 +77,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
 
     }
 
-    public void setClickListener(ClickListener clickListener) {
+    public void setClickListener(RecyclerClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
@@ -137,9 +138,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
     }
 
 
-    public interface ClickListener {
-        public void ItemClicked(View view, int position);
-    }
+
 
     public class MyHolder extends RecyclerView.ViewHolder {
         TextView name, startTime, venue;
@@ -154,7 +153,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
                 @Override
                 public void onClick(View v) {
                     if (clickListener != null) {
-                        clickListener.ItemClicked(v, getLayoutPosition());
+                        clickListener.onClick(v, getLayoutPosition());
                     }
                 }
             });

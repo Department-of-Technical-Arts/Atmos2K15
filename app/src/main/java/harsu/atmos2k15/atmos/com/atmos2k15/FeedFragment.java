@@ -1,10 +1,12 @@
 package harsu.atmos2k15.atmos.com.atmos2k15;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,12 @@ public class FeedFragment extends Fragment implements RecyclerClickListener {
 
     @Override
     public void onClick(View v, int pos) {
-        //todo start event description Activity
+        if(v.getId()==R.id.custom_feed_row) {
+            Intent intent = new Intent(getActivity(), EventDataActivity.class);
+            intent.putExtra("Event_id", feedSets.get(pos).getEvent_id());
+            startActivity(intent);
+            Log.e("started", pos + " ");
+
+        }
     }
 }

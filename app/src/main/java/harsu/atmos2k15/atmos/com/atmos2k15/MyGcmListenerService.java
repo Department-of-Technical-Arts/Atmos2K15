@@ -1,4 +1,3 @@
-
 package harsu.atmos2k15.atmos.com.atmos2k15;
 
 import android.app.NotificationManager;
@@ -59,19 +58,18 @@ public class MyGcmListenerService extends GcmListenerService {
          */
 
 
-
         try {
-            JSONObject object=new JSONObject(message);
-            int event_id=object.getInt("event_id");
-            String messageToDisplay=object.getString("message");
-            FeedTableManager feedTableManager=new FeedTableManager(this);
-            EventTableManager eventTableManager=new EventTableManager(this);
+            JSONObject object = new JSONObject(message);
+            int event_id = object.getInt("event_id");
+            String messageToDisplay = object.getString("message");
+            FeedTableManager feedTableManager = new FeedTableManager(this);
+            EventTableManager eventTableManager = new EventTableManager(this);
 
-            feedTableManager.addEntry(event_id,eventTableManager.getEventName(event_id) ,Calendar.getInstance().getTimeInMillis(),messageToDisplay);
+            feedTableManager.addEntry(event_id, eventTableManager.getEventName(event_id), Calendar.getInstance().getTimeInMillis(), messageToDisplay);
 
 
-            if(eventTableManager.checkFavourite(event_id))
-                sendNotification(message);
+            if (eventTableManager.checkFavourite(event_id))
+                sendNotification(message, eventTableManager.getEventName(event_id));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -85,27 +83,35 @@ public class MyGcmListenerService extends GcmListenerService {
     /**
      * Create and show a simple notification containing the received GCM message.
      *
-     * @param message GCM message received.
+     * @param message   GCM message received.
+     * @param eventName
      */
-    private void sendNotification(String message) {
+    private void sendNotification(String message, String eventName) {
         //todo add image and stuff to notification
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
-                PendingIntent.FLAG_ONE_SHOT);
+        try {
+            JSONObject object = new JSONObject(message);
+            //todo change MainActivity.class
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("GCM Message")
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(eventName)
+                    .setContentText(object.getString("message"))
+                    .setAutoCancel(true)
+                    .setSound(defaultSoundUri)
+                    .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

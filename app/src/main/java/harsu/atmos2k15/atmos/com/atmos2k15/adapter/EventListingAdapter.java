@@ -42,16 +42,16 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
     ArrayList<EventSet> events;
     RecyclerClickListener clickListener;
 
-    public void setClickListener(RecyclerClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
-
     public EventListingAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
 
         tableManager = new EventTableManager(context);
 
+    }
+
+    public void setClickListener(RecyclerClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     public void setEvents(ArrayList<EventSet> events) {
@@ -65,56 +65,57 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final EventSet event=events.get(position);
+        final EventSet event = events.get(position);
         holder.name.setText(event.getName());
         holder.start_time.setText(getTime(event.getStart_time()));
         holder.venue.setText(event.getVenue());
-        if(event.isFavourite())
+        if (event.isFavourite())
             holder.favourite.setImageResource(R.drawable.ic_heart);
         else
             holder.favourite.setImageResource(R.drawable.ic_heart_outline_black_48dp);
 
-        if(event.getImage_downloaded()==0){
+        if (event.getImage_downloaded() == 0) {
             Picasso.with(context).load(event.getImg_link())
-                    .resize(300,200)
+                    .resize(300, 200)
                     .centerCrop()
                     .into(holder.image, new Callback() {
-                @Override
-                public void onSuccess() {
-                    String path = saveToInternalSorage(((BitmapDrawable) holder.image.getDrawable()).getBitmap(), event.getName());
-                    Log.e("save Path",path);
-                    tableManager.imageDownloaded(event.getId(), path);
-                }
+                        @Override
+                        public void onSuccess() {
+                            String path = saveToInternalSorage(((BitmapDrawable) holder.image.getDrawable()).getBitmap(), event.getName());
 
-                @Override
-                public void onError() {
+                            tableManager.imageDownloaded(event.getId(), path);
+                        }
 
-                }
-            });
+                        @Override
+                        public void onError() {
 
-        }
-        else {
-            Log.e("Load from ",event.getImg_link());
-            holder.image.setImageBitmap(loadImageFromStorage(event.getImg_link(),event.getName()));
+                        }
+                    });
+
+        } else {
+
+            holder.image.setImageBitmap(loadImageFromStorage(event.getImg_link(), event.getName()));
         }
 
     }
+
     private String getTime(Long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        String temp = calendar.get(Calendar.HOUR_OF_DAY)%12
+        String temp = calendar.get(Calendar.HOUR_OF_DAY) % 12
                 + " " +
                 calendar.getDisplayName(Calendar.AM_PM, Calendar.LONG, Locale.getDefault());
 
         return temp;
 
     }
-    private String saveToInternalSorage(Bitmap bitmapImage,String name) {
+
+    private String saveToInternalSorage(Bitmap bitmapImage, String name) {
         ContextWrapper cw = new ContextWrapper(context);
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         // Create imageDir
-        File mypath = new File(directory,name+".jpg");
+        File mypath = new File(directory, name + ".jpg");
 
         FileOutputStream fos = null;
         try {
@@ -125,15 +126,16 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
         } catch (Exception e) {
-            Log.e("Save unsuccessful",e.toString());
+            Log.e("Save unsuccessful", e.toString());
             e.printStackTrace();
         }
         return directory.getAbsolutePath();
     }
-    private Bitmap loadImageFromStorage(String path,String name) {
+
+    private Bitmap loadImageFromStorage(String path, String name) {
 
         try {
-            File f = new File(path, name+".jpg");
+            File f = new File(path, name + ".jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             return b;
         } catch (FileNotFoundException e) {
@@ -151,7 +153,7 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image,favourite;
+        ImageView image, favourite;
         TextView name, start_time, venue;
 
         public MyViewHolder(View itemView) {
@@ -160,18 +162,18 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
             name = (TextView) itemView.findViewById(R.id.event_name);
             start_time = (TextView) itemView.findViewById(R.id.start_time);
             venue = (TextView) itemView.findViewById(R.id.venue);
-            favourite=(ImageView) itemView.findViewById(R.id.favourite_icon);
-            if(clickListener!=null){
+            favourite = (ImageView) itemView.findViewById(R.id.favourite_icon);
+            if (clickListener != null) {
                 favourite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickListener.onClick(v,getAdapterPosition());
+                        clickListener.onClick(v, getAdapterPosition());
                     }
                 });
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickListener.onClick(v,getAdapterPosition());
+                        clickListener.onClick(v, getAdapterPosition());
                     }
                 });
             }

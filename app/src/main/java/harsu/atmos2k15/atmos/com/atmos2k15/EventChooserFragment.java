@@ -52,6 +52,7 @@ public class EventChooserFragment extends Fragment implements RecyclerClickListe
         tabs.add(new EventChooserSet("Sciences", R.drawable.space_wallpaper));
         tabs.add(new EventChooserSet("Workshops", R.drawable.space_wallpaper));
         tabs.add(new EventChooserSet("Others", R.drawable.space_wallpaper));
+        tabs.add(new EventChooserSet("Initiatives", R.drawable.space_wallpaper));
         mAdapter.setEvents(tabs);
         mAdapter.setClickListener(this);
 
@@ -70,6 +71,14 @@ public class EventChooserFragment extends Fragment implements RecyclerClickListe
             args.putString("tab", tabs.get(pos).getName());
             fragment.setArguments(args);
             transaction.replace(R.id.container, fragment, "EventHeader");
+            transaction.commit();
+        }
+        else{
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
+            Fragment fragment=new InitiativeFragment();
+            transaction.addToBackStack("events");
+            transaction.replace(R.id.container, fragment, "initiative");
             transaction.commit();
         }
     }

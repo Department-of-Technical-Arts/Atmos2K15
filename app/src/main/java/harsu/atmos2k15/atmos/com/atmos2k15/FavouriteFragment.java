@@ -1,6 +1,7 @@
 package harsu.atmos2k15.atmos.com.atmos2k15;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,14 +24,13 @@ import helper.RecyclerClickListener;
 public class FavouriteFragment extends Fragment implements RecyclerClickListener {
 
 
-    public FavouriteFragment() {
-        // Required empty public constructor
-    }
-
     RecyclerView recyclerView;
     EventListingAdapter mAdapter;
     EventTableManager tableManager;
     ArrayList<EventSet> data;
+    public FavouriteFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,13 +42,13 @@ public class FavouriteFragment extends Fragment implements RecyclerClickListener
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView=(RecyclerView) view.findViewById(R.id.favourite_container);
-        mAdapter=new EventListingAdapter(getActivity());
+        recyclerView = (RecyclerView) view.findViewById(R.id.favourite_container);
+        mAdapter = new EventListingAdapter(getActivity());
         mAdapter.setClickListener(this);
-        tableManager=new EventTableManager(getActivity());
+        tableManager = new EventTableManager(getActivity());
 
         data = new ArrayList<>();
-        data=tableManager.getFavourites();
+        data = tableManager.getFavourites();
         mAdapter.setEvents(data);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -56,10 +56,14 @@ public class FavouriteFragment extends Fragment implements RecyclerClickListener
 
     @Override
     public void onClick(View v, int pos) {
-        if(v.getId()==R.id.favourite_icon){
+        if (v.getId() == R.id.favourite_icon) {
             tableManager.toggleFavourite(data.get(pos).getId());
             data.remove(pos);
             mAdapter.notifyItemRemoved(pos);
+        } else if (v.getId() == R.id.custom_event_row) {
+            Intent intent = new Intent(getActivity(), EventDataActivity.class);
+            intent.putExtra("Event_id", data.get(pos).getId());
+            startActivity(intent);
         }
     }
 }
