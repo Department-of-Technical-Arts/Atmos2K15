@@ -57,6 +57,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback {
             mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(icon)).position(location));
         }
 
+
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(ControllerConstants.latitudes[0], ControllerConstants.longitudes[0]))
                 .zoom(18)
