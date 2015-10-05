@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/flipimage"
+                android:textColor="@android:color/white"
                 android:layout_marginTop="8dp"
                 android:text="Nirmaan is a constructive citizen movement for an empowered India, with an aim to fulfill our responsibility towards our less privileged brothers and sisters and making the world a better place to live in. This institution was established in 2005 and has since then, worked incessantly for human development and related issues.
 

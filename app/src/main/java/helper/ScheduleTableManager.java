@@ -9,7 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import harsu.atmos2k15.atmos.com.atmos2k15.set.ScheduleSet;
+import harsu.atmos2k15.atmos.com.atmos2015.set.ScheduleSet;
+
 
 /**
  * Created by harsu on 6/24/2015.

@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import harsu.atmos2k15.atmos.com.atmos2k15.EventChooserFragment;
-import harsu.atmos2k15.atmos.com.atmos2k15.set.EventSet;
-import harsu.atmos2k15.atmos.com.atmos2k15.set.FeedSet;
+import harsu.atmos2k15.atmos.com.atmos2015.set.FeedSet;
 
 /**
  * Created by harsu on 6/24/2015.

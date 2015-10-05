@@ -3,23 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_margin="5dp"
+    android:background="@android:color/holo_orange_dark"
+    android:padding="0dp">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@android:color/holo_orange_dark"
+    android:gravity="center"
+
     android:orientation="horizontal">
     <LinearLayout
     android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/contact_image"
         android:layout_width="102dp"
-        android:layout_height="102dp"
+
+        android:layout_height="152dp"
         android:scaleType="centerCrop"
         />
 
 </LinearLayout>
         <LinearLayout
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -31,7 +41,7 @@
         android:layout_toRightOf="@+id/contact_image"
         android:fontFamily="sans-serif-medium"
         android:text="Prudhvi Potluri"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="22sp" />
 
     <TextView
@@ -43,14 +53,19 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
         android:text="President"
+        android:textColor="#fff"
         android:textSize="18sp" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
+                android:orientation="vertical"
                 android:layout_height="wrap_content">
         <TextView
             android:id="@+id/phoneno"
             android:text="9999999999"
+            android:textColor="#fff"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"/>
@@ -58,9 +73,15 @@
 
             android:id="@+id/email_text"
             android:text="abcd@gmail.com"
+            android:textColor="#fff"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
    </LinearLayout>
+
+
+
+
    <LinearLayout
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
@@ -69,6 +90,7 @@
             android:id="@+id/call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
             android:text="call" />
 
         <Button
@@ -76,6 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:textColor="@android:color/white"
+
             android:text="E-mail" />
    </LinearLayout>
         </LinearLayout>

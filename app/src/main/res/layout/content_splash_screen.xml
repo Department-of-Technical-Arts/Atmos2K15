@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:oak="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_five_final"
+
+    tools:context=".Splash">
+
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSplash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <Svg.AnimatedSvgView
+            android:id="@+id/animated_svg_view"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_margin="0dp"
+            oak:oakSvgFillStart="1500"
+            oak:oakSvgFillTime="2000"
+            oak:oakSvgImageSizeX="570"
+            oak:oakSvgImageSizeY="570"
+            oak:oakSvgTraceTime="2000"
+            oak:oakSvgTraceTimePerGlyph="1000" />
+
+
+        <ImageView
+            android:id="@+id/wt_logo_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/base_subtitle_final" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

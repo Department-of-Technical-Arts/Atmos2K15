@@ -6,12 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.security.KeyFactory;
 import java.util.ArrayList;
 
-import harsu.atmos2k15.atmos.com.atmos2k15.EventChooserFragment;
-import harsu.atmos2k15.atmos.com.atmos2k15.set.EventDataSet;
-import harsu.atmos2k15.atmos.com.atmos2k15.set.EventSet;
+import harsu.atmos2k15.atmos.com.atmos2015.set.EventDataSet;
+import harsu.atmos2k15.atmos.com.atmos2015.set.EventSet;
 
 /**
  * Created by harsu on 6/24/2015.

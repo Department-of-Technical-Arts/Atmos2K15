@@ -1,7 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.example.tejeshwarreddy.atmos.Register">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:gravity="center"
 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.tejeshwarreddy.atmos.Register">
+
+    <!--
     <LinearLayout
         android:id="@+id/name_layout"
         android:layout_width="fill_parent"
@@ -48,12 +54,12 @@
             android:text="nvkzjvkjbdvkxv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-<!--        <Spinner
+      <Spinner
             android:id="@+id/events_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-        </Spinner>-->
+        </Spinner>
             </LinearLayout>
     <LinearLayout
         android:layout_below="@+id/phoneno_layout"
@@ -120,4 +126,38 @@
         android:text="Register as Campus Ambassador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <Button
+        android:id="@+id/register_btn"
+        android:text="Register"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/cam_register_btn"
+        android:text="Register As Campus Ambassador"
+        android:layout_below="@+id/register_btn"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        />
+
+    </LinearLayout>
+
+
 </RelativeLayout>

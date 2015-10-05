@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/event_image"
         android:layout_width="match_parent"
-        android:layout_height="252dp"
+        android:layout_height="202dp"
         android:scaleType="centerCrop"
         android:src="@drawable/clouds"
         android:tint="#33000000" />
@@ -25,12 +25,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_toLeftOf="@+id/start_time"
             android:text="Robowars"
             android:textColor="#ffffff"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/start_time"
@@ -40,6 +40,7 @@
             android:layout_alignTop="@+id/event_name"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
+            android:visibility="invisible"
             android:text="23 am"
             android:textColor="#ffffff"
             android:textSize="18sp" />
@@ -47,12 +48,13 @@
         <TextView
             android:id="@+id/venue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_below="@+id/event_name"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:text="B block"
+            android:visibility="invisible"
             android:textColor="#ffffff"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -66,8 +68,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:tint="#ffffff"
         android:src="@drawable/ic_heart_outline_black_48dp" />
 </RelativeLayout>

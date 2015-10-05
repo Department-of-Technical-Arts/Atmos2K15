@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="harsu.atmos2k15.atmos.com.atmos2k15.EventListingFragmentHeader">
+    tools:context="harsu.atmos2k15.atmos.com.atmos2015.EventListingFragmentHeader">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/event_list_tab"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#22ffffff"
-        app:tabIndicatorColor="@color/white"
+        android:background="@android:color/transparent"
+        app:tabIndicatorColor="@color/primary_dark"
         app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="@color/white"
+        app:tabSelectedTextColor="@color/primary_dark"
         app:tabMode="scrollable"
 
         app:tabGravity="fill"/>

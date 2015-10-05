@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context="harsu.atmos2k15.atmos.com.atmos2k15.ReachCampus">
+    tools:context="harsu.atmos2k15.atmos.com.atmos2015.ReachCampus">
 
     <TextView
         android:layout_width="match_parent"

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="harsu.atmos2k15.atmos.com.atmos2k15.EventChooserFragment">
+    tools:context="harsu.atmos2k15.atmos.com.atmos2015.EventChooserFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/event_chooser_container"
