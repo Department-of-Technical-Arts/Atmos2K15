@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -61,10 +62,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
     private String getTime(Long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        String temp = calendar.get(Calendar.HOUR_OF_DAY) % 12+":"+ calendar.get(Calendar.MINUTE)
-                + " " +
-                calendar.getDisplayName(Calendar.AM_PM, Calendar.LONG, Locale.getDefault());
-
+        SimpleDateFormat format1 = new SimpleDateFormat("hh:mm a");
+        String temp = format1.format(calendar.getTime());
         return temp;
 
     }

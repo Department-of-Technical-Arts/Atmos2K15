@@ -3,7 +3,6 @@ package harsu.atmos2k15.atmos.com.atmos2015;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +27,14 @@ import helper.ScheduleTableManager;
 public class EventScheduleFragment extends Fragment implements RecyclerClickListener {
 
 
+    RecyclerView recyclerView;
+    ScheduleTableManager mTableManager;
+    ScheduleAdapter mAdapter;
+    int day;
+    ArrayList<ScheduleSet> data;
     public EventScheduleFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,21 +44,19 @@ public class EventScheduleFragment extends Fragment implements RecyclerClickList
 
     }
 
-    RecyclerView recyclerView;
-    ScheduleTableManager mTableManager;
-    ScheduleAdapter mAdapter;
-    int day;
-    ArrayList<ScheduleSet> data;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        day=getArguments().getInt("day");
-        recyclerView=(RecyclerView) view.findViewById(R.id.event_schedule_container);
-        mTableManager=new ScheduleTableManager(getActivity());
+        day = getArguments().getInt("day");
+        recyclerView = (RecyclerView) view.findViewById(R.id.event_schedule_container);
+        mTableManager = new ScheduleTableManager(getActivity());
 
         data = new ArrayList<>();
-        data=mTableManager.getSchedule(day);
-        mAdapter=new ScheduleAdapter(getActivity(),day);
+        data = mTableManager.getSchedule(day);
+        mAdapter = new ScheduleAdapter(getActivity(), day);
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.setScheduleSets(data);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
         recyclerView.addItemDecoration(headersDecor);
 
@@ -65,20 +66,18 @@ public class EventScheduleFragment extends Fragment implements RecyclerClickList
                 headersDecor.invalidateHeaders();
             }
         });
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.setScheduleSets(data);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         mAdapter.setClickListener(this);
 
     }
 
     @Override
     public void onClick(View v, int pos) {
-        if(v.getId()==R.id.event_schedule_row) {
+        if (v.getId() == R.id.event_schedule_row) {
             Intent intent = new Intent(getActivity(), EventDataActivity.class);
             intent.putExtra("Event_id", data.get(pos).getEvent_id());
             startActivity(intent);
-            Log.e("started",pos+" ");
+            Log.e("started", pos + " ");
 
         }
     }

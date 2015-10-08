@@ -39,9 +39,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
 
 
         morn_start.set(2015, Calendar.OCTOBER, 9 + day, 3, 0);
-        morn_end.set(2015, Calendar.OCTOBER, 9 + day, 12, 0);
-        aft_end.set(2015, Calendar.OCTOBER, 9 + day, 16, 0);
-        eve_end.set(2015, Calendar.OCTOBER, 9 + day, 19, 0);
+        morn_end.set(2015, Calendar.OCTOBER, 9 + day, 11, 59);
+        aft_end.set(2015, Calendar.OCTOBER, 9 + day, 15, 59);
+        eve_end.set(2015, Calendar.OCTOBER, 9 + day, 18, 59);
+
 
 
     }
@@ -88,8 +89,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
         int result;
 
         if (startTime >= morn_start.getTimeInMillis() && startTime < morn_end.getTimeInMillis()) {
-
-
             result=0;
         }
         else if (startTime >= morn_end.getTimeInMillis() && startTime < aft_end.getTimeInMillis()) {
@@ -101,6 +100,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
         else {
             result=3;
         }
+
+
         return result;
 
     }
@@ -112,7 +113,23 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
 
     @Override
     public void onBindHeaderViewHolder(MyHeaderHolder myHeaderHolder, int i) {
-        switch (i) {
+        long startTime = scheduleSets.get(i).getStart_time();
+        int result;
+
+        if (startTime >= morn_start.getTimeInMillis() && startTime < morn_end.getTimeInMillis()) {
+            result=0;
+        }
+        else if (startTime >= morn_end.getTimeInMillis() && startTime < aft_end.getTimeInMillis()) {
+            result=1;
+        }
+        else if (startTime >= aft_end.getTimeInMillis() && startTime < eve_end.getTimeInMillis()) {
+            result=2;
+        }
+        else {
+            result=3;
+        }
+
+        switch (result) {
             case 0:
                 myHeaderHolder.header.setText("Morning");
                 break;
@@ -127,6 +144,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyHold
                 break;
 
         }
+
 
     }
 

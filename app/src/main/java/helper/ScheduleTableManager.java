@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,6 +70,7 @@ public class ScheduleTableManager {
         if (presence == -1) {
             open();
             success = ourDatabase.insert(DATABASE_TABLE, null, cv);
+            //Log.e("ScheduleTable",success+" ");
             close();
         }
         return success;
@@ -82,7 +84,7 @@ public class ScheduleTableManager {
                         KEY_EVENT_TAG + "='" + cv.getAsString(KEY_EVENT_TAG) + "' ",
                 null);
         if (cursor.moveToFirst()) {
-            id=ourDatabase.update(DATABASE_TABLE, cv, KEY_ID + "=" + cursor.getInt(0), null);
+            id = ourDatabase.update(DATABASE_TABLE, cv, KEY_ID + "=" + cursor.getInt(0), null);
         }
         cursor.close();
         close();
@@ -91,16 +93,16 @@ public class ScheduleTableManager {
 
     public ArrayList<ScheduleSet> getSchedule(int day) {
 
-        Calendar start=Calendar.getInstance(),end=Calendar.getInstance();
-        start.set(2015,Calendar.OCTOBER,9+day,0,0);
-        end.set(2015,Calendar.OCTOBER,10+day,0,0);
+        Calendar start = Calendar.getInstance(), end = Calendar.getInstance();
+        start.set(2015, Calendar.OCTOBER, 9 + day, 0, 0);
+        end.set(2015, Calendar.OCTOBER, 10 + day, 0, 0);
 
         ArrayList<ScheduleSet> scheduleSets = new ArrayList<>();
         open();
         Cursor cursor = ourDatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE +
-                        " WHERE CAST("+KEY_START_TIME+" AS INTEGER) >= "+start.getTimeInMillis()+
-                        " AND CAST("+KEY_START_TIME+" AS INTEGER) < "+end.getTimeInMillis()+
-                        " ORDER BY CAST("+KEY_START_TIME+" AS INTEGER) ",
+                        " WHERE CAST(" + KEY_START_TIME + " AS INTEGER) >= " + start.getTimeInMillis() +
+                        " AND CAST(" + KEY_START_TIME + " AS INTEGER) < " + end.getTimeInMillis() +
+                        " ORDER BY CAST(" + KEY_START_TIME + " AS INTEGER) ",
                 null);
         if (cursor.moveToFirst())
             do {
@@ -120,14 +122,46 @@ public class ScheduleTableManager {
 
     public boolean dataPresent() {
         open();
-        boolean result=false;
-        Cursor cursor=ourDatabase.rawQuery(" SELECT * FROM "+DATABASE_TABLE,null);
-        if(cursor.moveToFirst()){
-            result=true;
+        boolean result = false;
+        Cursor cursor = ourDatabase.rawQuery(" SELECT * FROM " + DATABASE_TABLE, null);
+        if (cursor.moveToFirst()) {
+            result = true;
         }
         close();
         cursor.close();
         return result;
+
+    }
+
+    public void deleteTable() {
+        open();
+        ourHelper.onUpgrade(ourDatabase, 1, 1);
+        close();
+    }
+
+    public ArrayList<ScheduleSet> getSchedule(int id, int i) {
+
+
+        ArrayList<ScheduleSet> scheduleSets = new ArrayList<>();
+        open();
+        Cursor cursor = ourDatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE +
+                        " WHERE "+KEY_EVENT_ID+"="+id+
+                        " ORDER BY CAST(" + KEY_START_TIME + " AS INTEGER)",
+                null);
+        if (cursor.moveToFirst())
+            do {
+                ScheduleSet scheduleSet = new ScheduleSet(
+                        cursor.getInt(1),
+                        cursor.getInt(2),
+                        cursor.getString(3),
+                        cursor.getLong(4),
+                        cursor.getString(5)
+                );
+                scheduleSets.add(scheduleSet);
+            } while (cursor.moveToNext());
+        cursor.close();
+        close();
+        return scheduleSets;
 
     }
 

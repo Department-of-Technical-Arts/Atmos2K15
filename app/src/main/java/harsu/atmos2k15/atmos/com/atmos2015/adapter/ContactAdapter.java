@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -64,16 +65,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
 
         ImageView imageView;
         TextView name,designation,numberTV,emailTV;
-        Button email,mobile;
+        RelativeLayout email,mobile;
         public MyViewHolder(View itemView) {
             super(itemView);
             imageView= (ImageView) itemView.findViewById(R.id.contact_image);
             name=(TextView) itemView.findViewById(R.id.contact_name);
             designation=(TextView)itemView.findViewById(R.id.contact_designation);
-            mobile=(Button)itemView.findViewById(R.id.call);
-            email=(Button)itemView.findViewById(R.id.email);
+            mobile=(RelativeLayout)itemView.findViewById(R.id.call);
+            email=(RelativeLayout)itemView.findViewById(R.id.email);
             numberTV=(TextView) itemView.findViewById(R.id.phoneno);
-            emailTV=(TextView) itemView.findViewById(R.id.email_text);
+            emailTV=(TextView) itemView.findViewById(R.id.emailTV);
             if(clickListener!=null)
             {
                 mobile.setOnClickListener(new View.OnClickListener() {

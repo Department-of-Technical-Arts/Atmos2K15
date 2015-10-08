@@ -2,10 +2,8 @@ package harsu.atmos2k15.atmos.com.atmos2015;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,10 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import app.AppConfig;
-
-import harsu.atmos2k15.atmos.com.atmos2015.services.MyInstanceIDListenerService;
-import harsu.atmos2k15.atmos.com.atmos2015.services.RegistrationIntentService;
 import harsu.atmos2k15.atmos.com.atmos2015.services.ScheduleUpdateService;
 import helper.ScheduleTableManager;
 
@@ -39,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         backNumber = 0;
-
 
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -163,10 +155,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ScheduleUpdateService.class);
         startService(intent);
     }
-
-
-
-
 
 
     @Override

@@ -8,8 +8,9 @@
         android:id="@+id/favourite_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Favourites Added"
+        android:text="Mark an event as Favourite \nto get it\'s Notifications"
         android:layout_centerInParent="true"
+        android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="18sp"/>
     <android.support.v7.widget.RecyclerView

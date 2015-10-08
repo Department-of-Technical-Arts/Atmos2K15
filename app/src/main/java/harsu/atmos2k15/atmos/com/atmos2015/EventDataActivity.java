@@ -2,11 +2,9 @@ package harsu.atmos2k15.atmos.com.atmos2015;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -25,17 +23,18 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import harsu.atmos2k15.atmos.com.atmos2015.set.EventDataSet;
+import harsu.atmos2k15.atmos.com.atmos2015.set.ScheduleSet;
 import helper.EventTableManager;
+import helper.ScheduleTableManager;
 
 public class EventDataActivity extends AppCompatActivity {
 
@@ -50,6 +49,7 @@ public class EventDataActivity extends AppCompatActivity {
     int id;
 
     int defaultImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,26 +61,25 @@ public class EventDataActivity extends AppCompatActivity {
         }
         mTableManager = new EventTableManager(this);
         data = null;
+        if (!mTableManager.dataPresent(id)) {
+            finish();
+        }
         data = mTableManager.getEventData(id);
         if (data == null) {
             finish();
         }
 
-        String tag=data.getTag();
-        if(tag.equals("Technical Events")){
-            defaultImage=R.drawable.technical;
-        }
-        else if(tag.equals("Sciences")){
-            defaultImage=R.drawable.sciences;
-        }
-        else if(tag.equals("Workshops")) {
+        String tag = data.getTag();
+        if (tag.equals("Technical Events")) {
+            defaultImage = R.drawable.technical;
+        } else if (tag.equals("Sciences")) {
+            defaultImage = R.drawable.sciences;
+        } else if (tag.equals("Workshops")) {
             defaultImage = R.drawable.workshops;
-        }
-        else if(tag.equals("Others")) {
+        } else if (tag.equals("Others")) {
             defaultImage = R.drawable.others;
-        }
-        else
-            defaultImage=R.drawable.others;
+        } else
+            defaultImage = R.drawable.others;
 
 
         image = (ImageView) findViewById(R.id.event_image);
@@ -90,7 +89,7 @@ public class EventDataActivity extends AppCompatActivity {
         eventDescription.setText(Html.fromHtml(data.getDetails()));
 
         nestedScrollView = (NestedScrollView) findViewById(R.id.scroll);
-      //  mFabToolbar = (FabToolbar) findViewById(R.id.fabtoolbar);
+        //  mFabToolbar = (FabToolbar) findViewById(R.id.fabtoolbar);
 
         //mFab = (FloatingActionButton) findViewById(R.id.call_organizer);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -99,40 +98,7 @@ public class EventDataActivity extends AppCompatActivity {
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(data.getName());
 
-        try {
-            JSONArray contacts=new JSONArray(data.getContacts());
-            if(contacts.length()>0){
-                findViewById(R.id.cardview3).setVisibility(View.VISIBLE);
-                LinearLayout container= (LinearLayout) findViewById(R.id.contact_container);
-                LayoutInflater inflater=LayoutInflater.from(this);
-                for(int i=0; i<contacts.length(); i++){
-
-                    JSONObject object=contacts.getJSONObject(i);
-                    String name=object.getString("name");
-                    final String contact=object.getString("contact");
-                    Log.e("contact", name + contact);
-                    View view= inflater.inflate(R.layout.custom_event_contact,container,false);
-                    ((TextView) view.findViewById(R.id.contact_name)).setText(name);
-                    TextView contactTV=((TextView) view.findViewById(R.id.contact));
-                    contactTV.setText(contact);
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Uri number0 = Uri.parse("tel:+91"+contact);
-                            startActivity(new Intent(Intent.ACTION_DIAL, number0));
-                        }
-                    });
-                    container.addView(view,i);
-                }
-            }
-            else {
-                findViewById(R.id.cardview3).setVisibility(View.GONE);
-            }
-        } catch (JSONException e) {
-            findViewById(R.id.cardview3).setVisibility(View.GONE);
-
-            e.printStackTrace();
-        }
+        feedSchedule();
 
 
         setSupportActionBar(toolbar);
@@ -166,12 +132,63 @@ public class EventDataActivity extends AppCompatActivity {
 
     }
 
+    private void feedSchedule() {
+        ScheduleTableManager tableManager = new ScheduleTableManager(this);
+        ArrayList<ScheduleSet> schedules = tableManager.getSchedule(id, 0);
+        LinearLayout holder = (LinearLayout) findViewById(R.id.schedule_container);
+        if (schedules.size() > 0) {
+            LayoutInflater inflater = LayoutInflater.from(this);
+            for (int i = 0; i < schedules.size(); i++) {
+                if (i > 0) {
+                    holder.addView(inflater.inflate(R.layout.divider, holder, false));
+                }
+                View view = inflater.inflate(R.layout.custom_event_data_schedule_row, holder, false);
+                TextView name = (TextView) view.findViewById(R.id.event_schedule_name);
+                TextView time = (TextView) view.findViewById(R.id.event_schedule_time);
+                TextView venue = (TextView) view.findViewById(R.id.event_schedule_venue);
+                name.setText(getName(schedules.get(i).getName()));
+                if (time != null) {
+                    time.setText(getTime(schedules.get(i).getStart_time()));
+                } else {
+                    time.setVisibility(View.INVISIBLE);
+                }
+                if (venue != null)
+                    venue.setText(schedules.get(i).getVenue());
+                else
+                    venue.setVisibility(View.INVISIBLE);
+                holder.addView(view);
+            }
+
+
+        } else {
+            findViewById(R.id.cardview2).setVisibility(View.GONE);
+            holder.setVisibility(View.GONE);
+        }
+
+    }
+
+    private String getName(String name) {
+        if (name.indexOf('-') != -1) {
+            return name.substring(name.lastIndexOf('-') + 1);
+        } else
+            return name;
+
+    }
+
+    private String getTime(Long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        SimpleDateFormat format1 = new SimpleDateFormat("h a - dd MMM");
+        String temp = format1.format(calendar.getTime());
+        return temp;
+    }
+
     @Override
     public void onBackPressed() {
        /* if (mFabToolbar.isFabExpanded()) {
             mFabToolbar.contractFab();
         } else*/
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
     private void setImage() {

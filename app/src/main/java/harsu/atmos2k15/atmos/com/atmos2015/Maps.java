@@ -52,6 +52,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
             Bitmap icon = factory.makeIcon(ControllerConstants.names[i]);
             LatLng location = new LatLng(ControllerConstants.latitudes[i], ControllerConstants.longitudes[i]);
             mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(icon)).position(location));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         }
 
 
@@ -62,7 +63,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
                 .tilt(60)
                 .build();
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }
 

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import anim.AnimationUtils;
 import harsu.atmos2k15.atmos.com.atmos2015.R;
 import harsu.atmos2k15.atmos.com.atmos2015.set.EventSet;
 import helper.EventTableManager;
@@ -42,6 +43,7 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
     ArrayList<EventSet> events;
     int defaultImage;
     RecyclerClickListener clickListener;
+    int previousPos;
 
     public EventListingAdapter(Context context,String tag) {
         this.context = context;
@@ -62,6 +64,8 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
         }
         else
             defaultImage=R.drawable.others;
+
+        previousPos=-1;
 
     }
 
@@ -112,8 +116,18 @@ public class EventListingAdapter extends RecyclerView.Adapter<EventListingAdapte
 
             holder.image.setImageBitmap(loadImageFromStorage(event.getImg_link(), event.getName()));
         }
+        boolean goingDown;
+        if(position>previousPos){
+            goingDown=true;
+        }
+        else{
+            goingDown=false;
+        }
+        AnimationUtils.animate(holder, goingDown);
+        previousPos=position;
 
     }
+
 
     private String getTime(Long time) {
         Calendar calendar = Calendar.getInstance();
